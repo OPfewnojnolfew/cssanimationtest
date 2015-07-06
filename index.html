@@ -31,13 +31,13 @@
     }
     
     .animation-1 {
-        animation: myfirst .5s infinite;
-        -webkit-animation: myfirst .5s infinite;
+        animation: myfirst .5s;
+        -webkit-animation: myfirst .5s;
     }
     
     .animation-2 {
-        animation: myfirst .75s infinite;
-        -webkit-animation: myfirst .75s infinite;
+        animation: myfirst .75s;
+        -webkit-animation: myfirst .75s;
     }
     </style>
     <script type="text/javascript" src="jquery.js"></script>
@@ -88,11 +88,11 @@
 
             }
         };
-        // setInterval(function() {
+        setInterval(function() {
             var r = randomNum(10, 1001000);
             console.log(r);
             changeN(r);
-        // }, 2000);
+        }, 2000);
     });
     </script>
 </head>
