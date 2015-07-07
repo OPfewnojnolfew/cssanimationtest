@@ -5,7 +5,7 @@
     <meta charset="UTF-8">
     <title>Document</title>
     <style type="text/css">
-    @keyframes myfirst {
+    @keyframes numdown {
         from {
             margin-top: -10px;
         }
@@ -14,12 +14,27 @@
         }
     }
     
-    @-webkit-keyframes myfirst
-    /* Safari 和 Chrome */
-    
-    {
+    @-webkit-keyframes numdown {
         from {
             margin-top: -10px;
+        }
+        to {
+            margin-top: 0;
+        }
+    }
+    
+    @keyframes numup {
+        from {
+            margin-top: 10px;
+        }
+        to {
+            margin-top: 0;
+        }
+    }
+    
+    @-webkit-keyframes numup {
+        from {
+            margin-top: 10px;
         }
         to {
             margin-top: 0;
@@ -30,14 +45,24 @@
         float: left;
     }
     
-    .animation-1 {
-        animation: myfirst .5s;
-        -webkit-animation: myfirst .5s;
+    .num-1-1 {
+        animation: numdown .1s linear;
+        -webkit-animation: numdown .1s linear;
     }
     
-    .animation-2 {
-        animation: myfirst .75s;
-        -webkit-animation: myfirst .75s;
+    .num-1-2 {
+        animation: numdown .2s linear;
+        -webkit-animation: numdown .2s linear;
+    }
+    
+    .num-2-1 {
+        animation: numup .1s linear;
+        -webkit-animation: numup .1s linear;
+    }
+    
+    .num-2-2 {
+        animation: numup .2s linear;
+        -webkit-animation: numup .2s linear;
     }
     </style>
     <script type="text/javascript" src="jquery.js"></script>
@@ -71,11 +96,11 @@
             total = total.toMoney();
             var $span,
                 num;
+            var isDown = randomNum(0, 2);
             for (var i = total.length - 1, j = $spans.length - 1; i >= 0 || j >= 0; i--, j--) {
-                $span = $spans.eq(j);
+                var $span = $spans.eq(j);
                 if (!$span.length) {
-                    var r = randomNum(1, 2);
-                    $span = $('<span class="animation-' + r + '"></span>');
+                    $span = $('<span></span>');
                     $('.n-container').prepend($span);
                 }
                 num = total[i];
@@ -84,8 +109,15 @@
                 }
                 if ($span.text() != num) {
                     $span.text(num);
+                    var className = 'num-' + isDown + '-' + randomNum(0, 2);
+                    $span.removeClass(function(i, cn) {
+                        if (cn.indexOf('num-') > -1) {
+                            return cn;
+                        }
+                    }).addClass(className).one('webkitAnimationEnd animationend', function() {
+                        $(this).removeClass();
+                    });
                 }
-
             }
         };
         setInterval(function() {
