@@ -89,14 +89,14 @@
             if (isNaN(begin) || isNaN(end) || begin > end) {
                 return r;
             }
-            return Math.ceil(r * (end - begin) + begin);
+            return Math.floor(r * (end - begin + 1) + begin);
         };
         var changeN = function(total) {
             var $spans = $('.n-container span');
             total = total.toMoney();
             var $span,
                 num;
-            var isDown = randomNum(0, 2);
+            var isDown = randomNum(1, 2);
             for (var i = total.length - 1, j = $spans.length - 1; i >= 0 || j >= 0; i--, j--) {
                 var $span = $spans.eq(j);
                 if (!$span.length) {
@@ -109,7 +109,7 @@
                 }
                 if ($span.text() != num) {
                     $span.text(num);
-                    var className = 'num-' + isDown + '-' + randomNum(0, 2);
+                    var className = 'num-' + isDown + '-' + randomNum(1, 2);
                     $span.removeClass(function(i, cn) {
                         if (cn.indexOf('num-') > -1) {
                             return cn;
@@ -122,7 +122,7 @@
         };
         setInterval(function() {
             var r = randomNum(10, 1001000);
-            console.log(r);
+            // console.log(r);
             changeN(r);
         }, 2000);
     });
