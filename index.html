@@ -97,9 +97,10 @@
             var $span,
                 num;
             var isDown = randomNum(1, 2);
+            console.log(total);
             for (var i = total.length - 1, j = $spans.length - 1; i >= 0 || j >= 0; i--, j--) {
                 var $span = $spans.eq(j);
-                if (!$span.length) {
+                if (!$span.length || j < 0) {
                     $span = $('<span></span>');
                     $('.n-container').prepend($span);
                 }
@@ -107,7 +108,7 @@
                 if (total[i] === undefined) {
                     num = '';
                 }
-                if ($span.text() != num) {
+                if ($span.text() !== num) {
                     $span.text(num);
                     var className = 'num-' + isDown + '-' + randomNum(1, 2);
                     $span.removeClass(function(i, cn) {
@@ -121,7 +122,7 @@
             }
         };
         setInterval(function() {
-            var r = randomNum(10, 1001000);
+            var r = randomNum(10, 1000000);
             // console.log(r);
             changeN(r);
         }, 2000);
